@@ -18,8 +18,8 @@ The following dependencies are necessary for **Old Tiles** development:
 
 ### Programs
 
-- [**BlueprintReferenceViewer**]()
-- [**BlueprintDumper**]()
+- [**BlueprintReferenceViewer**](https://github.com/olshab/BlueprintReferenceViewer_UE5)
+- [**BlueprintDumper**](https://github.com/olshab/BlueprintDumper_UE5)
 
 ## Blueprint generation specifics
 
@@ -63,7 +63,7 @@ It means that blueprint is used as Child Actor in tile:
 
 So if you uncook tile blueprint `BP_TL_Fr_16x16_HD31` without uncooking `BP_WL_Br_4mStraight01_Asy` first, you will end up with empty Child Actor when you generate tile blueprint, because there is no such `BP_WL_Br_4mStraight01_Asy` in the project yet. To avoid that, you need to uncook `BP_WL_Br_4mStraight01_Asy` first and then the tile blueprint `BP_TL_Fr_16x16_HD31` itself. 
 
-To check what blueprints are referenced in tiles, you need to use [**BlueprintReferenceViewer**]() tool:
+To check what blueprints are referenced in tiles, you need to use [**BlueprintReferenceViewer**](https://github.com/olshab/BlueprintReferenceViewer_UE5) tool:
 
 ![BlueprintReferenceViewerSettings](https://github.com/olshab/DBDOldTiles_UE5/blob/main/Guide/BlueprintReferenceViewerSettings.png?raw=true)
 
@@ -95,7 +95,7 @@ Now you need to uncook blueprints contained in these .TXT files starting from th
 ### 2. Uncooking Tiles/Blueprints
 
 This is done in two steps: 
-1. Dumping `.uasset` blueprints as `.json` with [**BlueprintDumper**]() 
+1. Dumping `.uasset` blueprints as `.json` with [**BlueprintDumper**](https://github.com/olshab/BlueprintDumper_UE5) 
 2. Generating blueprint asset from `.json` dump in editor with **BlueprintUncooker** UE plugin.
 
 **BlueprintDumper** settings look like this:
