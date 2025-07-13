@@ -143,3 +143,35 @@ With that:
 - All `ActorSpawners` from Destination blueprint (from NewTiles) are replaced with blueprints from `Folder To Take ActorSpawners From` if `Replace Actor Spawners` is set to True. ActorSpawners in merged blueprint exist only for visualization purposes, they are not used in game
 
 Merging should be done to all Tile blueprints and blueprints used as ActorSpawners in live tiles, but you can perform it for any new/old blueprints. For example, it can be useful when you are backporting main buildings, allowing you to easily compare new/old models.
+
+### 4. Configuring Tile/ActorSpawner replacement
+
+After you have merged Tile or ActorSpawner you wanted, you need to configure it to actually see it in game instead of vanilla (live) Tile or ActorSpawner.
+
+Go to `Content/OldTilesCore/Data/MAP_NAME` and create or open `ActorOverrideDB.uasset`. If you just created it, make a reference to that newly created DataTable inside `Content/ModdingCore/Gameplay/BP_HorologiumMod_150.uasset`, in variable `ThemeToDataTable`:
+
+![ThemeToDataTable](https://github.com/olshab/DBDOldTiles_UE5/blob/main/Guide/ThemeToDataTable.png?raw=true)
+
+Inside `ActorOverrideDB.uasset` add a new row with the name corresponding to package path of live Tile or ActorSpawner blueprint that you want to "replace" in game. Click on that row to make sure it's active, and for `ReplaceWith` property select blueprint which you merged in previous step (remember that you can drag-and-drop it from Content Browser). After configuring `ActorOverrideDB.uasset` should look like this:
+
+![ActorOverrideDB](https://github.com/olshab/DBDOldTiles_UE5/blob/main/Guide/ActorOverrideDB.png?raw=true)
+
+### 5. Packaging
+
+In pakchunk you need to always include that following folders:
+
+- `Content/MergedTiles`
+- `Content/OriginalTiles`
+- `Content/OldTilesCore`
+- `Content/ModdingCore`
+
+It's recommended to not include `Content/NewTiles` as a whole since that folder contains assets from live version which you don't want to see anyway. However, it is necessary to include the following files (with corresponding `*.uexp` files), because they are used as a base class for merged blueprints from `Content/MergedTiles`:
+
+- `Content/NewTiles/Tiles/TileBase01.uasset`
+- `Content/NewTiles/Tiles/00-Common/BP_BaseEscapeTile.uasset`
+
+### 6. Testing in-game
+
+This mod needs the following modloader: [**ModLoader**](https://drive.google.com/file/d/1fZwSOcxpMJdZBNND8CLDkyMORkjxaWQK/view?usp=sharing)
+
+After you have packaged the mod into pakchunk, you can load into the map (for example, in KYF) you are working on and find your replaced Tile/ActorSpawner. However, you might want to easily spawn and debug the tile. This can be done using [**Tile Editor**](https://drive.google.com/file/d/1PGMZi7YAJdMaGU2XUuQb5Hbx_3EsVkYf/view?usp=sharing).
